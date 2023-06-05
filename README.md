@@ -57,8 +57,7 @@ fed_lr: 0.01 # FL model learning rate
 weight_decay: 0.0005 # FL model weight decay for CIFAR10
 opt: 'sgd' # FL optimizer : [ sgd / adam ]
 
-agr: "st4" # FL aggregation algorithms : [ fedavg / trmean / median / krum / mkrum / dnc/ fltrust / signguard/ st4 ]
-# st4 is our FLGuard
+agr: "flguard" # FL aggregation algorithms : [ fedavg / trmean / median / krum / mkrum / dnc/ fltrust / signguard/ flguard ]
 ```
 
 3. Adversary Settings
@@ -76,12 +75,18 @@ n_attackers: # For CIFAR-10 and MNIST, the number of malicious clients. For FEMN
 ### Contrastive Learning Settings ###
 contra_model_mode: "ae"  # contrastive learning model : [ ae / ResNet18 ]
 dim_reduction : "low_var" # reduction method for NOT ensemble model 
+contra_n_cluster: 2
+
+
+contra_dropout: 0.2 # contrastive learning dropout
+contra_learning_rate: 0.001 # CL learning rate
+
 
 # ae is a simple FCN model
 contra_dim0: 3072
 contra_dim1: 3072
 contra_dim2: 3072
-contra_n_cluster: 2
+
 # FCN dimensions
 
 # augmentation options 
@@ -94,27 +99,22 @@ contra_p_norm: 2
 contra_reconstruct_subset: False
 
 contra_epochs: 5 # the total number of contrastive learning epochs
-contra_dropout: 0.2 # contrastive learning dropout
-contra_learning_rate: 0.001 # CL learning rate
 contra_batch_size: 32 # CL batch size
+contra_validate: False    
+contra_scheduler: False    
 
 contra_add_noise: True # it must be set to TRUE
 contra_noise_type: "gaussian_noise" # CL augmentation type
-contra_masking_ratio: 1 # CL augmentation ratio
+contra_masking_ratio: 0.1 # CL augmentation ratio
 contra_noise_level: 0.0001 # CL augmentation level
 
-contra_contrastive_loss: True # Must set to True
-contra_reconstruction: True # Must set to True
-
 contra_shallow_architecture: True # Must set to True
-contra_similarity: "l2" # the similarity metric for CL : [ l2 / dot / cosine_similarity ]
-contra_tau: 0.5 # CL tau parameter
+contra_similarity: "cosine" # the similarity metric for CL : [ l2 / dot / cosine_similarity ]
+contra_tau: 0.01 # CL tau parameter
 
 contra_isBatchNorm: false 
 contra_isDropout: True 
 
-contra_validate: False    
-contra_scheduler: False    
 
 budget: 5 # Ours FL round budget size
 cluster: ahclu # clustering method
