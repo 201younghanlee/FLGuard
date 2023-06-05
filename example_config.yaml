@@ -1,0 +1,108 @@
+# general
+seed: 42
+workers: 32
+dataset_dir: "./datasets"
+gpu: 0
+
+#fl options
+nusers: 50
+user_tr_len: 1000
+n_attackers: 
+  - 10
+val_len: 5000
+te_len: 5000
+non_iid_p: 0.0
+
+
+at_type: "dyn-krum"
+dev_type: "sign"
+agr: "flguard"
+unknown: False
+
+batch_size: 32
+image_size: 224
+start_epoch: 0
+epochs: 2000
+
+gamma: 0.5
+fed_lr: 0.01
+opt: 'sgd'
+
+
+arch: "resnet-14"
+dataset: "CIFAR10" # CIFAR-10 / CIFAR-100 / STL-10 / ImageNet-10 / ImageNet-dogs / tiny-ImageNet
+n_classes: 10
+budget: 5
+####  CL train options ####
+cl_batch_size: 128
+cl_image_size: 224
+cl_k : 5
+cl_start_epoch: 0
+cl_epochs: 50
+
+
+## model options
+resnet: "ResNet18" # ResNet18 / ResNet34 / ResNet50
+feature_dim: 128
+
+## model_path: "save/cifar10"
+model_path: "save/grad5"
+reload: False
+
+## loss options
+learning_rate: 0.0003
+weight_decay: 0.0005
+instance_temperature: 0.5
+cluster_temperature: 0.5
+
+#### SubTab options ####
+contra_model_mode: "ae" # ae / ResNet18
+dim_reduction : "low_var"
+contra_n_cluster: 2
+
+contra_dropout: 0.2
+contra_learning_rate: 0.001
+#contra_weight_decay: 0.00001
+contra_epochs: 5
+contra_batch_size: 32
+contra_nth_epoch: 1       
+contra_validate: False    
+contra_scheduler: False    
+
+               
+contra_shallow_architecture: true
+
+contra_dim0: 3072 #data
+contra_dim1: 3072 #hidden
+contra_dim2: 3072
+
+contra_isBatchNorm: false 
+contra_isDropout: True 
+
+contra_normalize: true
+contra_p_norm: 2                        
+
+contra_n_subsets: 2
+contra_overlap: 1.0
+
+contra_add_noise: True
+contra_noise_type: "gaussian_noise"
+contra_masking_ratio: 1
+contra_noise_level: 0.0001
+
+contra_contrastive_loss: True
+contra_distance_loss: True
+
+contra_aggregation: "mean"
+contra_similarity: "l2"
+ 
+contra_tau: 0.5
+
+
+### pcl ###
+pcl_nsamples: 500
+pcl_num_cluster:
+  - 64
+  - 128
+pcl_temperature: 0.2
+cluster: ahclu
